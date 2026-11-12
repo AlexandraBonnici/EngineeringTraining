@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>From Physics to Robot Motion · Engineering Workshop</title>
+<style>
+:root{--ink:#16344b;--muted:#607889;--accent:#187e91;--mint:#d9f1e9;--orange:#d47b49;--paper:#f8f9fa;--line:#d9e3e9;--blue:#e5eff6;--shadow:0 14px 50px #14344915}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;background:#e9eff2;color:var(--ink)}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #3ca7bb;outline-offset:3px}.deck{position:absolute;inset:0;display:grid;place-items:center;padding:12px}.slide{position:relative;width:min(calc((100vh - 24px)*16/9),calc(100vw - 24px));aspect-ratio:16/9;background:var(--paper);box-shadow:var(--shadow);overflow:hidden;display:none;padding:4.6% 5.4% 5.5%}.slide.active{display:flex;flex-direction:column;animation:enter .3s ease}@keyframes enter{from{opacity:.6;transform:translateY(7px)}to{opacity:1;transform:none}}.rule{height:5px;background:linear-gradient(90deg,var(--accent) 0 35%,#b8d6df 35% 100%);position:absolute;left:0;right:0;top:0}.eyebrow{font-size:clamp(10px,1.05vw,17px);font-weight:750;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 1%}.slide h1{font-size:clamp(30px,4.25vw,65px);line-height:1.11;letter-spacing:-.046em;margin:0;max-width:1000px;font-weight:760}.slide h2{font-size:clamp(25px,3.45vw,52px);letter-spacing:-.04em;line-height:1.12;margin:0 0 1.3%;font-weight:750}.lead{font-size:clamp(15px,1.65vw,26px);color:#456276;line-height:1.45;max-width:920px;margin:.8% 0 0}.content{flex:1;display:flex;min-height:0;align-items:stretch;gap:3%;margin-top:2.5%}.col{flex:1;min-width:0}.visual{background:linear-gradient(135deg,#eaf3f7,#f4f8f9);border:1px solid var(--line);border-radius:18px;display:flex;align-items:center;justify-content:center;min-height:0;position:relative;overflow:hidden}.visual svg{width:100%;height:100%}.panel{background:white;border:1px solid var(--line);border-radius:17px;padding:4%;box-shadow:0 2px 6px #20415b05}.panel+.panel{margin-top:2.4%}.panel h3{font-size:clamp(15px,1.65vw,24px);margin:0 0 2%;letter-spacing:-.025em}.panel p,.explain{font-size:clamp(12px,1.3vw,20px);line-height:1.5;color:#435e72;margin:0}.formula{font-size:clamp(20px,2.75vw,41px);font-weight:720;letter-spacing:-.03em;color:#116f82;margin:.18em 0}.aside{font-size:clamp(11px,1.05vw,17px);line-height:1.5;color:var(--muted)}.foot{position:absolute;bottom:2.4%;left:5.4%;right:5.4%;display:flex;justify-content:space-between;align-items:center;color:#81919c;font-size:clamp(9px,.8vw,13px);border-top:1px solid #dce5ea;padding-top:1%}.highlight{color:#0d7186}.pill{display:inline-block;padding:.38em .8em;background:#deedf1;border-radius:100px;color:#24687b;font-weight:700;font-size:clamp(12px,1.12vw,17px)}.tagline{font-size:clamp(16px,1.8vw,28px);line-height:1.5;color:#456276}.control{margin:0 0 4%}.control label{display:flex;justify-content:space-between;align-items:baseline;font-size:clamp(12px,1.15vw,17px);font-weight:680;margin-bottom:7px;gap:10px}.control output{color:var(--accent);font-variant-numeric:tabular-nums}.control input[type=range]{width:100%;accent-color:var(--accent);height:22px}.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.action{border:1px solid #b7d0d9;background:white;border-radius:9px;padding:10px 14px;color:#155267;font-size:clamp(12px,1.12vw,17px);font-weight:700}.action.primary{background:var(--accent);border-color:var(--accent);color:white}.action.selected{background:#d8ecf1;border-color:#69a7b7}.statbox{background:white;border:1px solid var(--line);border-radius:13px;padding:14px 18px}.statlabel{font-size:clamp(11px,1.1vw,16px);color:var(--muted)}.statnum{font-size:clamp(23px,2.7vw,41px);font-weight:750;color:#146c82;letter-spacing:-.03em}.statrow{display:flex;gap:12px;flex-wrap:wrap}.step{display:flex;align-items:center;gap:10px;background:white;border:1px solid #d6e3e9;border-radius:12px;padding:14px 18px;font-size:clamp(15px,1.65vw,25px);font-weight:680}.step .number{color:#16849a;font-size:clamp(11px,1.05vw,15px)}.steparrow{font-size:clamp(22px,3vw,42px);color:#9fc1ca;text-align:center}.covergrid{display:grid;grid-template-columns:1.1fr .9fr;gap:3%;align-items:center;flex:1}.coverbox{background:#e6f1f4;border-radius:20px;padding:7%;border:1px solid #c8dce4}.coverflow{font-size:clamp(15px,1.65vw,25px);line-height:1.6}.coverflow strong{color:#106b81}.kicker{font-size:clamp(13px,1.15vw,19px);font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.12em}.nav{position:fixed;bottom:20px;right:22px;display:flex;align-items:center;gap:8px;z-index:20}.nav button{width:42px;height:42px;border-radius:50%;border:1px solid #c3d6de;background:#fff;color:#1b6075;font-size:23px;box-shadow:0 2px 8px #14344912}.nav .count{font-size:13px;color:#496879;font-variant-numeric:tabular-nums;background:#fff;border-radius:100px;padding:9px 12px}.progress{position:fixed;bottom:0;left:0;height:4px;background:var(--accent);z-index:30;transition:width .25s}.toptools{position:fixed;top:14px;right:19px;z-index:22;display:flex;gap:7px}.toptools button{background:#fffdfd;border:1px solid #c4d6df;color:#36687a;border-radius:8px;padding:7px 10px;font-size:13px}.speaker{display:none;position:fixed;left:25px;bottom:20px;z-index:40;width:min(530px,calc(100vw - 50px));background:#fff;box-shadow:var(--shadow);border:1px solid var(--line);padding:16px;border-radius:13px;font-size:14px;color:#395568;line-height:1.45}.speaker.open{display:block}.speaker strong{color:var(--ink)}.quizopt{padding:12px 16px;background:#fff;border:1px solid var(--line);border-radius:11px;margin:8px 0;display:block;width:100%;text-align:left;font-size:clamp(13px,1.25vw,20px);color:var(--ink)}.quizopt.correct{background:#dff1e8;border-color:#40a784}.quizopt.wrong{background:#fff0e8;border-color:#df9b7d}.feedback{min-height:42px;color:#276b75;font-size:clamp(13px,1.2vw,18px);margin-top:8px}.smallcaps{color:var(--accent);text-transform:uppercase;font-size:clamp(10px,.95vw,15px);font-weight:750;letter-spacing:.11em}.fadein{animation:enter .6s ease}.svglabel{font:600 15px Inter,Arial,sans-serif;fill:#416579}.svgbold{font:700 17px Inter,Arial,sans-serif;fill:#156c80}.orbit{transform-origin:250px 170px}.tiremarks{stroke:#486679;stroke-width:3;stroke-linecap:round}.arrowgreen{stroke:#158966;fill:none;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.arroworange{stroke:#d17e48;fill:none;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}@media(max-width:680px){.slide{padding:4% 5% 5.5%}.panel{padding:3%}.nav{bottom:5px;right:7px}.nav button{width:32px;height:32px;font-size:16px}.nav .count{font-size:10px;padding:5px 8px}.toptools{top:4px;right:6px}.toptools button{font-size:10px;padding:3px 5px}.control{margin-bottom:2%}.action{padding:5px 8px}.statbox{padding:6px 10px}.visual,.panel{border-radius:9px}.content{margin-top:1.5%}}
+.svgsmall{font:600 14px Inter,Arial,sans-serif}.visual svg{max-width:100%;height:auto}
+.coverflow,.steparrow{text-align:left}.steparrow{margin:.18em 0 .18em 0;padding-left:0;color:#9fc1ca;font-weight:700}.action.ghost{background:#fff;color:#36687a;border:1px solid #c4d6df}.action.ghost:hover{background:#f4f8fa}
+.slide:nth-of-type(2) .slide2-controls{display:flex;min-height:0}.slide:nth-of-type(2) .slide2-controls>.panel{width:100%;height:100%;display:flex;flex-direction:column;justify-content:center}.slide:nth-of-type(2) .visual{flex:1}
+
+#frictionSlide .panel{box-shadow:none}#frictionSlide .visual svg{max-width:100%;height:auto}
+#torqueSlide .panel+.panel{margin-top:0}#torqueSlide .content>.col{min-width:0}#turningSlide #leftTraceArrow,#turningSlide #rightTraceArrow{pointer-events:none}
+#wheelAngleSlide .content>.col>.panel:first-child{height:39%;flex:0 0 39%}#wheelAngleSlide .content>.col>.panel:nth-child(2){flex:1;min-height:0}#wheelAngleSlide .panel+.panel{margin-top:0}#wheelAngleSlide .smallcaps{line-height:1.15;margin-bottom:4px}#wheelAngleSlide .content{overflow:hidden}</style></head><body><main class="deck" id="deck">
+<section class="slide active" data-note="Open with an engineering message: physics allows us to predict forces and motion; mathematics turns those ideas into models; programming uses these models to control actual machines. Ask participants to suggest another machine that uses the same cycle."><div class="rule"></div><p class="eyebrow">Engineering workshop · Robotics</p><div class="covergrid"><div><p class="kicker">From scientific ideas to working machines</p><h1>Engineering a Robot's Journey</h1><p class="lead" style="margin-top:5%">We use physics to understand how machines behave, mathematics to model their motion, and engineering control to turn those models into working robot movements.</p></div><div class="coverbox"><div class="coverflow"><strong>Physics ideas</strong><br/>Forces, friction and rotation</div><div class="steparrow">↓</div><div class="coverflow"><strong>Mathematical model</strong><br/>Equations and predictions</div><div class="steparrow">↓</div><div class="coverflow"><strong>Working machine</strong><br/>Program the robot to move by a chosen distance or angle</div></div></div><div class="foot"><span>ENGINEERING · FROM THEORY TO PRACTICE</span><span>01 / 12</span></div></section><section class="slide" data-note=""><div class="rule"></div><p class="eyebrow">01 · Motion and measurement</p><h2>How far will the robot travel?</h2><p class="lead">Watch how one wheel revolution moves the robot forwards, and how the distance changes with wheel diameter.</p><div class="content"><div class="col slide2-controls" style="flex:1"><div class="panel"><div class="control"><label for="diamStraight">Wheel diameter <output id="diamStraightVal">100 mm</output></label><input id="diamStraight" max="100" min="50" step="10" type="range" value="100"/></div><div class="statbox"><div class="statlabel">Predicted distance</div><div class="statnum" id="straightDistance">314 mm</div></div><div class="controls" style="margin-top:14px"><button class="action" id="animateStraight">▶ Animate</button><button class="action ghost" id="resetStraight">↺ Reset</button></div></div></div><div class="visual col" style="flex:1"><svg aria-label="Wheel rolling along a floor with matching highlighted circumference and distance" id="rollingDiagram" viewBox="0 0 620 360">
+<defs><clippath id="rollingClip"><rect height="285" width="566" x="28" y="35"></rect></clippath></defs>
+<g clip-path="url(#rollingClip)">
+<g id="movingCamera">
+<line stroke="#9db8c6" stroke-width="3" x1="-50" x2="5000" y1="256" y2="256"></line>
+<path d="M110 256 L110 256" fill="none" id="travelGrowLine" stroke="#d47b49" stroke-linecap="round" stroke-width="8"></path>
+<line id="travelStartMark" stroke="#d47b49" stroke-width="3" x1="110" x2="110" y1="250" y2="272"></line>
+<g id="rollingTranslate" transform="translate(110 195)">
+<g id="rollingRotate">
+<circle cx="0" cy="0" fill="#c9e2ed" id="wheelOuter" r="61" stroke="#4385a0" stroke-width="4"></circle>
+<circle cx="0" cy="0" fill="#eef5f8" id="wheelInner" r="44" stroke="#9fc0cf" stroke-width="2"></circle>
+<path d="" fill="none" id="contactArc" stroke="#d47b49" stroke-linecap="round" stroke-width="8"></path>
+<path d="" fill="none" id="contactSeed" stroke="#d47b49" stroke-linecap="round" stroke-width="8"></path>
+<line id="spoke1" stroke="#4385a0" stroke-width="4" x1="0" x2="0" y1="0" y2="-53"></line>
+<line id="spoke2" stroke="#4385a0" stroke-width="4" x1="0" x2="46" y1="0" y2="27"></line>
+<line id="spoke3" stroke="#4385a0" stroke-width="4" x1="0" x2="-46" y1="0" y2="27"></line>
+<circle cx="0" cy="0" fill="#4385a0" r="8"></circle>
+</g>
+</g>
+</g>
+</g>
+<text class="svgsmall" fill="#607889" x="35" y="26">Wheel rolling without slipping</text>
+<text class="svgbold" id="straightDistanceLabel" text-anchor="middle" x="310" y="339">0 mm travelled</text>
+</svg></div></div><div class="foot"><span>INTERACTIVE · CHANGE PARAMETERS</span><span>02 / 12</span></div></section><section class="slide" data-note="Roll a real wheel across paper: mark the starting contact point, rotate through one full revolution, measure travel. Derive circumference from diameter."><div class="rule"></div><p class="eyebrow">02 · Geometry of rolling</p><h2>One wheel rotation = one circumference</h2><p class="lead" style="max-width:none;white-space:nowrap">For rolling without slipping, the distance travelled depends on the wheel's diameter.</p><div class="content" style="align-items:stretch"><div class="visual col" style="flex:1.1"><svg viewBox="0 0 540 340"><line stroke="#8baab8" stroke-width="3" x1="30" x2="505" y1="254" y2="254"></line><g id="rollingwheel"><circle cx="135" cy="181" fill="#d2e5ee" r="73" stroke="#357c98" stroke-width="5"></circle><g id="spokes"><line stroke="#357c98" stroke-width="5" x1="135" x2="135" y1="181" y2="108"></line><line stroke="#357c98" stroke-width="5" x1="135" x2="199" y1="181" y2="216"></line><line stroke="#357c98" stroke-width="5" x1="135" x2="72" y1="181" y2="218"></line></g><circle cx="135" cy="181" fill="#357c98" r="11"></circle></g><path d="M136 280 H405" stroke="#16869b" stroke-dasharray="9 7" stroke-width="4"></path><path d="M136 270 V292 M405 270 V292" stroke="#16869b" stroke-width="4"></path><text class="svgbold" id="circLabel" text-anchor="middle" x="272" y="316">Distance = πD</text><text class="svglabel" text-anchor="middle" x="263" y="66">One complete revolution</text><path d="M200 83 C244 116 253 166 239 192" fill="none" stroke="#d17e48" stroke-width="5"></path><path d="M226 180 L239 197 L253 180" fill="none" stroke="#d17e48" stroke-width="5"></path></svg></div><div class="col" style="display:flex;flex-direction:column;justify-content:space-between;gap:0;height:100%"><div class="panel" style="margin:0"><p class="smallcaps">Geometry of a circle</p><div class="formula">C = πD</div><p>One revolution moves the robot by one circumference.</p></div><div class="panel" style="margin:0"><p class="smallcaps">Number of wheel revolutions</p><div class="formula">s = NπD</div><p class="aside">s = distance · N = revolutions · D = diameter</p></div></div></div><div class="foot"><span>ASSUMPTION: THE WHEELS DO NOT SLIP</span><span>03 / 12</span></div></section><section class="slide" id="frictionSlide">
+<div class="rule"></div>
+<p class="eyebrow">03 · Forces and friction</p>
+<h2>Why does the robot move forwards?</h2>
+<p class="lead" style="max-width:none;white-space:nowrap;font-size:clamp(14px,1.45vw,23px)">A turning wheel pushes backwards on the ground. Friction pushes the wheel, and robot, forwards.</p>
+<div class="content" style="align-items:stretch;gap:2.2%;margin-top:1.8%">
+<div class="visual col" style="flex:0.98">
+<svg aria-label="Wheel and ground contact force diagram" viewBox="0 0 565 340">
+<defs>
+<marker id="groundArrow" markerHeight="22" markerUnits="userSpaceOnUse" markerWidth="22" markerHeight="7" markerUnits="userSpaceOnUse" markerWidth="7" orient="auto" refX="20" refY="11" refX="6" refY="3.5" viewBox="0 0 22 22" viewBox="0 0 10 10"><path d="M0 0 L20 11 L0 22 Z" fill="#168966"></path></marker>
+<marker id="wheelArrow" markerHeight="22" markerUnits="userSpaceOnUse" markerWidth="22" markerHeight="7" markerUnits="userSpaceOnUse" markerWidth="7" orient="auto" refX="20" refY="11" refX="6" refY="3.5" viewBox="0 0 22 22" viewBox="0 0 10 10"><path d="M0 0 L20 11 L0 22 Z" fill="#d47b49"></path></marker>
+<marker id="rotArrow" markerHeight="22" markerUnits="userSpaceOnUse" markerWidth="22" orient="auto" refX="20" refY="11" viewBox="0 0 22 22"><path d="M0 0 L20 11 L0 22 Z" fill="#4385a0"></path></marker>
+</defs>
+<rect fill="#e2e9eb" height="45" rx="4" width="535" x="15" y="257"></rect>
+<line stroke="#829aa6" stroke-width="3" x1="15" x2="550" y1="257" y2="257"></line>
+<circle cx="241" cy="166" fill="#cde3ed" r="91" stroke="#4385a0" stroke-width="6"></circle>
+<circle cx="241" cy="166" fill="#eaf3f7" r="58" stroke="#9fc0cf" stroke-width="2"></circle>
+<line stroke="#4385a0" stroke-width="5" x1="241" x2="241" y1="166" y2="80"></line>
+<line stroke="#4385a0" stroke-width="5" x1="241" x2="308" y1="166" y2="214"></line>
+<line stroke="#4385a0" stroke-width="5" x1="241" x2="174" y1="166" y2="214"></line>
+<circle cx="241" cy="166" fill="#4385a0" r="10"></circle>
+<path d="M173.39 105.10 A91 91 0 0 1 326.49 134.88" fill="none" marker-end="url(#rotArrow)" stroke="#4385a0" stroke-width="5"></path>
+<text fill="#477487" font-size="18" font-weight="700" x="98" y="61">Motor turns wheel</text>
+<text fill="#607889" font-size="15" x="98" y="82">clockwise</text>
+<circle cx="241" cy="266" fill="#d47b49" r="7"></circle>
+<path d="M241 266 H419" fill="none" marker-end="url(#groundArrow)" stroke="#168966" stroke-linecap="round" stroke-width="6"></path>
+<text fill="#168966" font-size="13.5" font-weight="700" text-anchor="start" x="290" y="318">Ground pushes wheel forwards</text>
+<path d="M241 266 H63" fill="none" marker-end="url(#wheelArrow)" stroke="#d47b49" stroke-linecap="round" stroke-width="6"></path>
+<text fill="#c16e42" font-size="13.5" font-weight="700" text-anchor="start" x="20" y="318">Wheel pushes ground backwards</text>
+<path d="M419 266 L406 260 L406 272 Z" fill="#168966"></path><path d="M63 266 L76 260 L76 272 Z" fill="#d47b49"></path></svg>
+</div>
+<div class="col" style="display:flex;flex-direction:column;justify-content:space-between;gap:1.2%;height:100%">
+<div class="panel" style="padding:3.2% 3.7%"><h3 style="margin:0 0 1.2%;font-size:clamp(14px,1.45vw,21px)">1 · Motor applies a torque</h3><p style="font-size:clamp(11px,1.12vw,17px);line-height:1.38;margin:0">The motor turns the wheel so its contact point tends to move backwards along the floor.</p></div>
+<div class="panel" style="padding:3.2% 3.7%"><h3 style="margin:0 0 1.2%;font-size:clamp(14px,1.45vw,21px)">2 · Static friction provides the grip</h3><p style="font-size:clamp(11px,1.12vw,17px);line-height:1.38;margin:0">The wheel pushes backwards on the ground; the ground exerts a <b>forward frictional force</b> on the wheel.</p></div>
+<div class="panel" style="padding:3.2% 3.7%"><h3 style="margin:0 0 1.2%;font-size:clamp(14px,1.45vw,21px)">3 · Constant velocity motion</h3><p style="font-size:clamp(11px,1.12vw,17px);line-height:1.38;margin:0">If the forward frictional force balances the opposing forces, the robot continues moving forwards at <b>constant velocity</b>.</p></div>
+</div>
+</div>
+<div class="foot"><span>NEWTON'S THIRD LAW · THE FORCES ACT ON DIFFERENT BODIES</span><span>04 / 12</span></div>
+</section><section class="slide" id="turningSlide"><div class="rule"></div><p class="eyebrow">04 · Turning</p><h2>Turning the robot on the spot</h2><p class="lead">What if the two wheels turn in opposite directions?</p>
+<div class="content" style="margin-top:1.1%;flex-direction:column;gap:1%;align-items:center;justify-content:center">
+<div class="visual" style="width:100%;max-width:900px;flex:1;min-height:0;padding:0;display:flex;align-items:center;justify-content:center">
+<svg aria-label="Top view of a robot rotating clockwise, tracing circular paths from each wheel" role="img" style="width:100%;height:100%;max-height:100%" viewBox="0 0 720 335">
+<text fill="#55788c" font-size="17" font-weight="700" text-anchor="middle" x="360" y="23">Top view · One complete turn</text>
+<circle cx="360" cy="174" fill="none" r="106" stroke="#d9e5ec" stroke-dasharray="5 7" stroke-width="1.6"></circle>
+<circle cx="360" cy="174" fill="none" id="leftWheelTrace" r="104" stroke="#d47b49" stroke-linecap="round" stroke-width="5.5" transform="rotate(180 360 174)"></circle>
+<circle cx="360" cy="174" fill="none" id="rightWheelTrace" r="98" stroke="#168966" stroke-linecap="round" stroke-width="5.5"></circle>
+<g id="turnRobot" transform="rotate(0 360 174)">
+<rect fill="#cee5ef" height="92" rx="15" stroke="#4c91aa" stroke-width="3" width="82" x="319" y="128"></rect>
+<rect fill="#d47b49" height="38" rx="5" stroke="#ad6139" stroke-width="1.5" width="17" x="251" y="155"></rect>
+<rect fill="#168966" height="38" rx="5" stroke="#0b6d50" stroke-width="1.5" width="17" x="452" y="155"></rect>
+<line stroke="#5e91a5" stroke-width="3" x1="268" x2="319" y1="174" y2="174"></line>
+<line stroke="#5e91a5" stroke-width="3" x1="401" x2="452" y1="174" y2="174"></line>
+<circle cx="360" cy="174" fill="#236f82" r="7"></circle>
+<path d="M360 138 V116 M350 128 L360 115 L370 128" fill="none" stroke="#4c91aa" stroke-linecap="round" stroke-width="3"></path>
+<text fill="#28667a" font-size="14" font-weight="700" text-anchor="middle" x="360" y="202">Robot</text>
+</g>
+<circle cx="360" cy="174" fill="#236f82" r="3"></circle>
+<g font-size="15" font-weight="650">
+<line stroke="#d47b49" stroke-linecap="round" stroke-width="6" x1="70" x2="96" y1="109" y2="109"></line>
+<text fill="#995c35" x="105" y="115">Left wheel path</text>
+<line stroke="#168966" stroke-linecap="round" stroke-width="6" x1="488" x2="514" y1="109" y2="109"></line>
+<text fill="#116a50" x="523" y="115">Right wheel path</text>
+</g>
+<text fill="#55788c" font-size="14" text-anchor="middle" x="360" y="320">Both wheels travel around the robot’s centre as it rotates.</text>
+</svg></div>
+<div class="controls" style="width:100%;justify-content:center;gap:14px;margin:0 0 3px"><button class="action primary" id="playTurn">▶ Animate turn</button><button class="action" id="resetTurn">↺ Reset</button></div>
+</div><div class="foot"><span>WHEEL PATHS · TURNING ON THE SPOT</span><span>05 / 12</span></div></section><section class="slide" data-note="Ask: if the wheels are commanded in different directions, does the robot travel forwards or rotate? Stress the motor direction must be interpreted relative to each side's wheel geometry. The arrows in this slide represent ground forces on the robot, not the torque direction of the motor shaft." id="torqueSlide"><div class="rule"></div><p class="eyebrow">05 · Understanding motion</p><h2>Why does the robot rotate?</h2><p class="lead">Opposite forces on opposite sides create a <b>turning effect</b> (torque).</p><div class="content" style="margin-top:1.5%;gap:2.4%;align-items:stretch;min-height:0"><div class="visual col" style="flex:1.12;min-height:0"><svg aria-label="Robot top view showing forces" viewBox="0 0 500 340"><rect fill="#d0e4ed" height="213" rx="22" stroke="#5e91a5" stroke-width="3" width="156" x="172" y="66"></rect><rect fill="#526675" height="106" rx="7" width="19" x="153" y="115"></rect><rect fill="#526675" height="106" rx="7" width="19" x="328" y="115"></rect><circle cx="250" cy="173" fill="#236f82" r="8"></circle><text class="svglabel" text-anchor="middle" x="250" y="196">Centre</text><path class="arrowgreen" d="M144 135 V48 M133 63 L144 44 L155 63"></path><path class="arroworange" d="M357 207 V296 M346 280 L357 299 L368 280"></path><text class="svglabel" fill="#168966" x="72" y="35">Forward</text><text class="svglabel" x="375" y="318">Backward</text><path d="M205 89 A99 99 0 0 1 310 130" fill="none" stroke="#19869b" stroke-dasharray="7 8" stroke-width="5"></path><path d="M293 120 L314 132 L316 109" fill="none" stroke="#19869b" stroke-width="5"></path><text class="svgbold" text-anchor="middle" x="251" y="254">Clockwise</text></svg></div><div class="col" style="display:flex;flex-direction:column;justify-content:space-between;gap:2%;min-height:0;flex:0.88"><div class="panel" style="padding:3.2% 4%;min-height:0;margin:0"><h3 style="margin:0 0 1.5%;font-size:clamp(14px,1.48vw,22px)">What is torque?</h3><p style="margin:0;font-size:clamp(11px,1.15vw,17px);line-height:1.38">Torque is the <b>turning effect of a force</b> about a pivot or axis. Its magnitude depends on the force and its perpendicular distance from the pivot.</p></div><div class="panel" style="padding:3.2% 4%;min-height:0;margin:0"><h3 style="margin:0 0 1.5%;font-size:clamp(14px,1.48vw,22px)">Torque makes the robot rotate</h3><p style="margin:0;font-size:clamp(11px,1.15vw,17px);line-height:1.38">The forces on the two wheels act on opposite sides of the robot. Both produce torque in the same rotational direction.</p><div class="formula" style="margin:1% 0;font-size:clamp(18px,2.3vw,34px)">τ = F × L</div><p class="aside" style="margin:0;font-size:clamp(11px,1.15vw,17px);line-height:1.38">For an equal-force couple, L is the separation between the force lines.</p></div></div></div><div class="foot"><span>TWO OPPOSITE WHEEL FORCES CREATE A TURNING EFFECT</span><span>06 / 12</span></div></section><section class="slide" data-note="Track width L is the left-to-right distance between wheel contact paths. In the ideal two-wheel model each wheel traces a circle with diameter L when turning on the spot. D is wheel diameter." id="wheelAngleSlide"><div class="rule"></div><p class="eyebrow">06 · From model to calculation</p><h2>Wheel rotation ≠ robot turn angle</h2><div class="content" style="margin-top:1.1%;gap:2.4%;align-items:stretch;min-height:0"><div class="col" style="display:flex;flex-direction:column;justify-content:flex-start;gap:10px;min-height:0"><div class="panel" style="padding:3.2% 3.4%;margin:0;min-height:0;display:flex;flex-direction:column;justify-content:space-between;gap:8px;flex:0 0 39%"><p class="smallcaps">Wheel travel</p><div class="formula" style="font-size:clamp(18px,2.15vw,32px);line-height:1.15;margin:0">s = NπD</div><p class="aside" style="margin:0;font-size:clamp(10.5px,.98vw,15px);line-height:1.34"><b>D</b> = wheel diameter. <b>N</b> = number of wheel revolutions.</p></div><div class="panel" style="padding:3.2% 3.4%;margin:0;min-height:0;display:flex;flex-direction:column;justify-content:space-between;gap:8px;flex:1 1 auto"><p class="smallcaps">Distance needed for a turn</p><div class="formula" style="font-size:clamp(18px,2.15vw,32px);line-height:1.15;margin:0">s = (θ / 360°)πL</div><p class="aside" style="margin:0;font-size:clamp(10.5px,.98vw,15px);line-height:1.34"><b>L</b> = track width: the distance between the left and right wheels. For a turn on the spot, each wheel traces a circle of <b>diameter L</b>.</p></div></div><div class="col" style="display:flex;flex-direction:column;justify-content:flex-start;gap:10px;min-height:0"><div class="panel" style="padding:3.2% 3.4%;margin:0;min-height:0;display:flex;flex-direction:column;justify-content:space-between;gap:8px;flex:0 0 39%;background:#e4f1f4"><p class="smallcaps">Equate distances and simplify</p><div class="formula" style="font-size:clamp(18px,2.15vw,32px);line-height:1.15;margin:0">N = θL / (360D)</div><p class="aside" style="margin:0;font-size:clamp(10.5px,.98vw,15px);line-height:1.34">So, <b>N</b> is the wheel revolutions needed for a robot turn angle <b>θ</b>.</p></div><div class="panel" style="padding:3.2% 3.4%;margin:0;min-height:0;flex:1 1 auto;display:flex;flex-direction:column;gap:6px;overflow:hidden">
+<p class="smallcaps">Why track width matters</p>
+<svg aria-label="Top view: the wheels trace a circle whose diameter equals the track width" style="width:100%;height:198px;max-height:198px;flex:0 1 auto;min-height:0;overflow:visible" viewBox="0 0 440 225">
+<circle cx="220" cy="99" fill="none" r="82" stroke="#16869b" stroke-dasharray="8 5" stroke-width="3.8"></circle>
+<rect fill="#cde3ed" height="72" rx="11" stroke="#4385a0" stroke-width="2.6" width="70" x="185" y="63"></rect>
+<rect fill="#d47b49" height="34" rx="4" stroke="#ad6139" stroke-width="1.2" width="20" x="120" y="82"></rect>
+<rect fill="#168966" height="34" rx="4" stroke="#0b6d50" stroke-width="1.2" width="20" x="300" y="82"></rect>
+<path d="M140 99 H185 M255 99 H300" fill="none" stroke="#54798b" stroke-width="2.5"></path>
+<circle cx="220" cy="99" fill="#236f82" r="5.2"></circle>
+<text fill="#28667a" font-size="12.5" font-weight="700" text-anchor="middle" x="220" y="116">Robot</text>
+<path d="M220 99 V17" fill="none" stroke="#187e91" stroke-dasharray="4 5" stroke-width="1.5"></path>
+<text fill="#187e91" font-size="15" font-weight="650" x="232" y="44">L/2</text>
+<text fill="#187e91" font-size="14" font-weight="650" x="345" y="29">Wheel path</text>
+<path d="M342 35 L303 44" fill="none" stroke="#187e91" stroke-width="1.6"></path>
+<path d="M130 180 V191 M310 180 V191 M130 186 H310" fill="none" stroke="#187e91" stroke-width="2.3"></path>
+<text fill="#146c82" font-size="19" font-weight="700" text-anchor="middle" x="220" y="210">Track width L</text>
+<text fill="#607889" font-size="13" text-anchor="middle" x="220" y="230">Distance between the wheels</text>
+</svg>
+</div></div></div><div class="foot"><span>MATHEMATICS PREDICTS WHAT THE MOTORS MUST DO</span><span>07 / 12</span></div></section><section class="slide" data-note="This live calculator uses the ideal 2-wheel model. Ask learners to double the track width without changing the wheel size or the angle. The wheel rotation doubles. Can also double the diameter and see that required revolutions halve."><div class="rule"></div><p class="eyebrow">07 · Interactive model</p><h2>Design a 90° turn — or any angle</h2><p class="lead">Change the geometry. What happens to the motor rotations?</p><div class="content"><div class="col" style="flex:.95"><div class="panel"><div class="control"><label for="dTurn">Wheel diameter <output id="dTurnVal">100 mm</output></label><input id="dTurn" max="150" min="50" step="10" type="range" value="100"/></div><div class="control"><label for="lTurn">Track width <output id="lTurnVal">300 mm</output></label><input id="lTurn" max="500" min="150" step="10" type="range" value="300"/></div><div class="control"><label for="thetaTurn">Robot turn angle <output id="thetaTurnVal">90°</output></label><input id="thetaTurn" max="360" min="0" step="15" type="range" value="90"/></div></div></div><div class="col" style="display:flex;flex-direction:column;justify-content:center;gap:3%"><div class="statrow"><div class="statbox" style="flex:1"><div class="statlabel">Wheel revolutions</div><div class="statnum" id="turnRevs">0.75</div></div><div class="statbox" style="flex:1"><div class="statlabel">Wheel rotation</div><div class="statnum" id="turnDegrees">270°</div></div></div><div class="visual" style="flex:1"><svg viewBox="0 0 420 205"><circle cx="208" cy="104" fill="none" id="trackCirclePreview" r="73" stroke="#b3ccd8" stroke-dasharray="6 6" stroke-width="2"></circle><g id="turnPreview" style="transform-origin:208px 104px"><rect fill="#cae3ed" height="82" id="trackChassisPreview" rx="11" stroke="#4e90a8" stroke-width="2.5" width="74" x="171" y="63"></rect><rect fill="#526675" height="42" id="leftWheelPreview" rx="4" width="13" x="158" y="84"></rect><rect fill="#526675" height="42" id="rightWheelPreview" rx="4" width="13" x="245" y="84"></rect><path d="M208 76 V66 M201 75 L208 65 L215 75" fill="none" stroke="#4386a1" stroke-width="3"></path></g><circle cx="208" cy="104" fill="#4386a1" r="4"></circle><text class="svglabel" text-anchor="middle" x="208" y="191">Robot width and orientation</text></svg></div></div></div><div class="foot"><span>CHANGE THE PARAMETERS · PREDICT THE RESULT</span><span>08 / 12</span></div></section><section class="slide" data-note="A two-drive-wheel robot may have two unpowered rear wheels. Front wheels propel and steer; rear wheels rotate passively. If rear wheels are fixed-direction conventional wheels, they may scrub sideways during turning. Casters that swivel can reduce that resistance. Arrows distinguish powered rolling from possible passive sideways scrub."><div class="rule"></div><p class="eyebrow">09 · Real machines</p><h2>Four wheels, not two?</h2><p class="lead" style="max-width:none;white-space:nowrap;font-size:clamp(12px,1.35vw,20px);letter-spacing:-0.015em">The two front wheels are driven by motors. The rear wheels roll freely, but can still resist sideways motion during a turn.</p><div class="content"><div class="visual col" style="flex:1.05"><svg aria-label="Top view: powered front wheels rotating in opposite directions and unpowered rear wheels that may scrub sideways" viewBox="0 0 480 340">
+<defs>
+<marker id="frontGreen" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="7" refY="4" viewBox="0 0 8 8"><path d="M0 0 L8 4 L0 8 Z" fill="#168966"></path></marker>
+<marker id="frontOrange" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="7" refY="4" viewBox="0 0 8 8"><path d="M0 0 L8 4 L0 8 Z" fill="#d47b49"></path></marker>
+<marker id="passiveArrow" markerHeight="5" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="7" refY="4" viewBox="0 0 8 8"><path d="M0 0 L8 4 L0 8 Z" fill="#698899"></path></marker>
+</defs>
+<text fill="#55788c" font-size="14" font-weight="700" text-anchor="middle" x="240" y="20">FRONT OF ROBOT ↑</text>
+<rect fill="#cce3ed" height="230" rx="16" stroke="#4d91a8" stroke-width="3" width="140" x="170" y="53"></rect>
+<path d="M222 72 L240 60 L258 72" fill="none" stroke="#4d91a8" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<!-- Front, motor-driven wheels -->
+<rect fill="#168966" height="54" rx="4" width="18" x="152" y="84"></rect>
+<rect fill="#d47b49" height="54" rx="4" width="18" x="310" y="84"></rect>
+<text fill="#315b6f" font-size="13" font-weight="700" text-anchor="middle" x="240" y="113">Driven</text>
+<text fill="#315b6f" font-size="13" font-weight="700" text-anchor="middle" x="240" y="129">front wheels</text>
+<path d="M143 133 V76" fill="none" marker-end="url(#frontGreen)" stroke="#168966" stroke-linecap="round" stroke-width="4"></path>
+<path d="M338 88 V145" fill="none" marker-end="url(#frontOrange)" stroke="#d47b49" stroke-linecap="round" stroke-width="4"></path>
+<!-- Rear unpowered wheels -->
+<rect fill="#526675" height="54" rx="4" width="18" x="152" y="213"></rect>
+<rect fill="#526675" height="54" rx="4" width="18" x="310" y="213"></rect>
+<text fill="#315b6f" font-size="13" font-weight="700" text-anchor="middle" x="240" y="235">Unpowered</text>
+<text fill="#315b6f" font-size="13" font-weight="700" text-anchor="middle" x="240" y="251">rear wheels</text>
+<!-- Approximate sideways scrub direction for clockwise pivot, rear of robot moving left -->
+<path d="M149 241 H112" fill="none" marker-end="url(#passiveArrow)" stroke="#698899" stroke-dasharray="5 4" stroke-width="3.5"></path>
+<path d="M308 241 H277" fill="none" marker-end="url(#passiveArrow)" stroke="#698899" stroke-dasharray="5 4" stroke-width="3.5"></path>
+<circle cx="240" cy="166" fill="#398ba3" r="5"></circle>
+<path d="M216 145 A34 34 0 0 1 271 178" fill="none" stroke="#4385a0" stroke-linecap="round" stroke-width="3"></path>
+<path d="M261 172 L272 181 L276 168" fill="none" stroke="#4385a0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+<text fill="#526675" font-size="13" font-weight="650" text-anchor="middle" x="240" y="312">Dashed arrows: possible rear-wheel sideways scrub</text>
+</svg></div><div class="col" style="display:flex;flex-direction:column;justify-content:center;gap:3%"><div class="panel"><p class="smallcaps">Front wheels · driven</p><p>The motors turn the left and right front wheels in opposite directions to steer the robot.</p></div><div class="panel"><p class="smallcaps">Rear wheels · unpowered</p><p>The rear wheels follow the robot’s movement; they are not driven by motors.</p></div><div class="panel" style="background:#e8f2f5"><h3>Turning scrub</h3><p>If the rear wheels cannot swivel sideways, they may skid laterally as the robot turns. Swivelling castors behave differently.</p></div></div></div><div class="foot"><span>IDEAL MODELS ARE A STARTING POINT · REAL FRICTION MATTERS</span><span>09 / 12</span></div></section><section class="slide" data-note=""><div class="rule"></div><p class="eyebrow">09 · From model to movement</p><h2>Programming the Robot to Move Forwards</h2><div class="content" style="margin-top:1.4%;gap:2.2%;align-items:stretch;min-height:0">
+<div class="col" style="flex:1.12;min-width:0;display:flex">
+<div class="panel" style="width:100%;padding:3%;min-height:0;display:flex;flex-direction:column;gap:7px">
+<p class="smallcaps">VEX V5 Python · Complete example</p>
+<pre style="font-size:clamp(10px,.9vw,14px);line-height:1.35;color:#1c5970;white-space:pre;overflow:visible;margin:0;flex:1"><code>from vex import *
+
+brain = Brain()
+
+# 1. Configure the two driven motors
+left_motor = Motor(Ports.PORT1)
+right_motor = Motor(Ports.PORT2)
+left_motor.set_reversed(True)
+
+# 2. Measure wheel and robot dimensions (mm)
+wheel_travel = 314
+track_width = 300
+wheelbase = 200
+
+# 3. Initialise the drivetrain
+drivetrain = DriveTrain(left_motor, right_motor,
+                        wheel_travel, track_width,
+                        wheelbase, MM)
+
+# 4. Set forward speed and distance
+drivetrain.set_drive_velocity(30, PERCENT)
+drivetrain.drive_for(FORWARD, 500, MM)</code></pre>
+</div>
+</div>
+<div class="col" style="flex:.88;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:10px">
+<div class="panel" style="padding:3.5%;margin:0">
+<h3 style="font-size:clamp(14px,1.46vw,22px);margin:0 0 7px">1 · Configure the motors</h3>
+<p style="font-size:clamp(11px,1.13vw,17px);line-height:1.42;margin:0">The motors are mounted on opposite sides of the robot. Reversing the left motor ensures that both wheels drive the robot forwards when given the same forward command.</p>
+</div>
+<div class="panel" style="padding:3.5%;margin:0">
+<h3 style="font-size:clamp(14px,1.46vw,22px);margin:0 0 7px">2 · Describe the robot</h3>
+<p style="font-size:clamp(11px,1.13vw,17px);line-height:1.42;margin:0">Measure the wheel circumference, track width and wheelbase.</p>
+</div>
+<div class="panel" style="padding:3.5%;margin:0">
+<h3 style="font-size:clamp(14px,1.46vw,22px);margin:0 0 7px">3 · Move forwards</h3>
+<p style="font-size:clamp(11px,1.13vw,17px);line-height:1.42;margin:0"><b>30%</b> is the chosen drive speed. <b>500 mm</b> is the commanded forward travel distance. The rear wheels are unpowered.</p>
+</div>
+</div>
+</div><div class="foot"><span>CONFIGURE → MODEL → DRIVE FORWARDS</span><span>10 / 12</span></div></section><section class="slide" id="turn90Slide">
+<div class="rule"></div>
+<p class="eyebrow">10 · From model to movement</p>
+<h2>Programming a 90° Turn</h2>
+<p class="lead" style="max-width:none">Use the same drivetrain configured on the previous slide to turn the robot on the spot.</p>
+<div class="content" style="margin-top:2%;gap:3%;align-items:stretch">
+<div class="col" style="flex:1.05;display:flex;min-width:0">
+<div class="panel" style="width:100%;padding:5%;display:flex;flex-direction:column;justify-content:center;gap:5%">
+<p class="smallcaps">VEX V5 Python · Continue the previous program</p>
+<pre style="font-size:clamp(15px,1.5vw,24px);line-height:1.9;color:#1c5970;margin:0;white-space:pre-wrap"><code># Turn slowly for better accuracy
+<span style="color:#0d7186">drivetrain.set_turn_velocity(20, PERCENT)</span>
+
+# Rotate 90 degrees to the right
+<span style="color:#0d7186">drivetrain.turn_for(RIGHT, 90, DEGREES)</span></code></pre>
+<p class="aside">The motor ports, wheel circumference, track width and wheelbase were configured on Slide 10.</p>
+</div>
+</div>
+<div class="col" style="flex:.95;display:flex;flex-direction:column;gap:2%;min-width:0">
+<div class="visual" style="flex:1;min-height:0;padding:2%;background:#eaf3f7">
+<svg aria-label="Robot facing upwards before a clockwise right-angle turn; afterwards it faces right" style="width:100%;height:100%" viewBox="0 0 390 270">
+<defs><marker id="turnArrow90" markerHeight="7" markerWidth="7" orient="auto" refX="6" refY="3.5"><path d="M0 0 L7 3.5 L0 7 Z" fill="#187e91"></path></marker></defs>
+<circle cx="193" cy="136" fill="none" r="85" stroke="#b6d0de" stroke-dasharray="5 6" stroke-width="2"></circle>
+<g id="turn90Robot" transform="rotate(0 193 136)">
+<rect fill="#c8dfea" height="90" rx="10" stroke="#4987a1" stroke-width="2.7" width="60" x="163" y="91"></rect>
+<rect fill="#d47b49" height="35" rx="3" width="10" x="153" y="112"></rect>
+<rect fill="#168966" height="35" rx="3" width="10" x="223" y="112"></rect>
+<path d="M193 125 V99 M183 109 L193 98 L203 109" fill="none" stroke="#187e91" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></path>
+<circle cx="193" cy="136" fill="#236f82" r="5"></circle>
+</g>
+<path d="M115 111 A82 82 0 0 1 219 59" fill="none" marker-end="url(#turnArrow90)" stroke="#187e91" stroke-width="3"></path>
+<text fill="#607889" font-size="15" x="100" y="45">90° clockwise</text>
+<text fill="#42677b" font-size="16" id="turn90Caption" text-anchor="middle" x="193" y="255">Starting direction: forward</text>
+</svg>
+</div>
+<div class="controls" style="justify-content:center;gap:12px"><button class="action primary" id="playTurn90">▶ Animate 90° turn</button><button class="action" id="resetTurn90">↺ Reset</button></div>
+<div class="panel" style="padding:3.5%"><p>Adjust <b>set_turn_velocity</b> to control the turning speed. <b>turn_for</b> specifies the direction and angle.</p></div>
+</div>
+</div>
+<div class="foot"><span>CONTROL A TURN USING THE GEOMETRIC MODEL</span><span>11 / 12</span></div>
+</section><section class="slide" id="targetSlide">
+<div class="rule"></div>
+<p class="eyebrow">11 · Hands-on engineering challenge</p>
+<h2>Can you reach the target?</h2>
+<p class="lead" style="max-width:none">Start at <b>A</b> and reach <b>B</b>. Decide how your robot should travel.</p>
+<div class="content" style="margin-top:1.2%;gap:2.5%;align-items:stretch;min-height:0">
+<div class="visual col" style="flex:1.12;min-width:0;padding:2%">
+<svg aria-label="Points A and B separated by 400 millimetres horizontally and 600 millimetres vertically; no route prescribed" style="width:100%;height:100%" viewBox="0 0 560 340"><defs><pattern height="38" id="routeGrid" patternunits="userSpaceOnUse" width="38"><path d="M38 0 L0 0 0 38" fill="none" stroke="#d1e0e9" stroke-width="1"></path></pattern></defs>
+<rect fill="url(#routeGrid)" height="316" rx="8" width="540" x="10" y="8"></rect>
+<!-- Only measurement guides, not a route -->
+<path d="M130 270 H410 M410 270 V70" fill="none" stroke="#95b2c1" stroke-dasharray="5 7" stroke-width="1.8"></path>
+<path d="M130 284 V302 M410 284 V302 M130 293 H410" fill="none" stroke="#187e91" stroke-width="2"></path>
+<path d="M429 70 H448 M429 270 H448 M440 70 V270" fill="none" stroke="#187e91" stroke-width="2"></path>
+<text fill="#146c82" font-size="17" font-weight="700" text-anchor="middle" x="270" y="314">400 mm</text>
+<text fill="#146c82" font-size="17" font-weight="700" x="451" y="176">600 mm</text>
+<circle cx="130" cy="270" fill="#168966" r="18"></circle><text fill="white" font-size="18" font-weight="750" text-anchor="middle" x="130" y="276">A</text>
+<circle cx="410" cy="70" fill="#d47b49" r="19"></circle><text fill="white" font-size="18" font-weight="750" text-anchor="middle" x="410" y="77">B</text></svg>
+</div>
+<div class="col" style="flex:.88;min-width:0;min-height:0;display:flex;flex-direction:column;justify-content:space-between;gap:7px"><div class="panel" style="padding:2.6% 3.4%;margin:0;min-height:0;flex:0 1 auto"><h3 style="font-size:clamp(14px,1.45vw,21px);margin:0 0 5px">Your challenge</h3><p style="font-size:clamp(11px,1.08vw,16px);line-height:1.32;margin:0">Place the robot at <b>A</b>, facing north. Point <b>B</b> lies <b style="white-space:nowrap">400 mm east</b> and <b>600 mm north</b> of A.</p><p class="aside" style="font-size:clamp(11px,1.08vw,16px);line-height:1.32;margin:0;margin-top:5px">Choose your own route. You may combine turns and forward movements in any order.</p></div><div class="panel" style="padding:2.6% 3.4%;margin:0;min-height:0;flex:0 1 auto"><h3 style="font-size:clamp(14px,1.45vw,21px);margin:0 0 5px">Predict → Program → Test</h3><p style="font-size:clamp(11px,1.08vw,16px);line-height:1.32;margin:0">Plan your journey, program the robot, measure the final position and improve the result.</p></div><div class="panel" style="padding:2.6% 3.4%;margin:0;min-height:0;flex:0 1 auto"><h3 style="font-size:clamp(14px,1.45vw,21px);margin:0 0 5px">Compare approaches</h3><p style="font-size:clamp(11px,1.08vw,16px);line-height:1.32;margin:0">How do different routes compare in distance travelled, number of turns and accuracy?</p></div></div>
+</div>
+<div class="foot"><span>START → PLAN → CONTROL → TARGET</span><span>12 / 12</span></div>
+</section></main><div class="toptools"><button id="fullscreenBtn" title="Enter presentation fullscreen (F)">⛶ Full screen</button></div><div class="nav"><span class="count" id="pagecount">1 / 10</span><button aria-label="Previous slide" id="prev">‹</button><button aria-label="Next slide" id="next">›</button></div><div class="progress" id="progress"></div>
+<script>(()=>{'use strict';
+const slides=[...document.querySelectorAll('.slide')];
+let page=0;
+const $=id=>document.getElementById(id);
+let rollingFrame=0, rollStart=null, rollProgress=0;
+let turnRaf=0,turnBegin=0;
+function stopRoll(){if(rollingFrame) cancelAnimationFrame(rollingFrame);rollingFrame=0;rollStart=null;if($('animateStraight'))$('animateStraight').textContent='▶ Animate';}
+function stopTurn(){if(turnRaf)cancelAnimationFrame(turnRaf);turnRaf=0;turnBegin=0;if($('playTurn'))$('playTurn').textContent='▶ Animate turn';}
+function show(i){
+ page=Math.max(0,Math.min(slides.length-1,i));
+ slides.forEach((s,n)=>s.classList.toggle('active',n===page));
+ $('pagecount').textContent=`${page+1} / ${slides.length}`;
+ $('progress').style.width=`${(page+1)/slides.length*100}%`;
+ $('prev').disabled=page===0;$('next').disabled=page===slides.length-1;
+ if(page!==1)stopRoll(); if(page!==4)stopTurn(); if(page!==10&&typeof stop90==='function')stop90();
+}
+$('prev').onclick=()=>show(page-1);$('next').onclick=()=>show(page+1);
+$('fullscreenBtn').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()};
+document.addEventListener('keydown',e=>{
+ if(['INPUT','TEXTAREA','BUTTON'].includes(document.activeElement.tagName)&&!['Escape','ArrowRight','ArrowLeft'].includes(e.key))return;
+ if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){if(e.target.tagName==='INPUT')return;e.preventDefault();show(page+1)}
+ else if(e.key==='ArrowLeft'||e.key==='PageUp'){if(e.target.tagName==='INPUT')return;e.preventDefault();show(page-1)}
+ else if(e.key==='f'||e.key==='F')$('fullscreenBtn').click();
+});
+let startX=null;
+document.addEventListener('touchstart',e=>{if(e.target.closest('input,button'))return;startX=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',e=>{if(startX===null||e.target.closest('input,button'))return;const delta=e.changedTouches[0].clientX-startX;if(Math.abs(delta)>70)show(page+(delta<0?1:-1));startX=null},{passive:true});
+function polar(cx,cy,r,a){let rad=(a-90)*Math.PI/180;return{x:cx+r*Math.cos(rad),y:cy+r*Math.sin(rad)}}
+function rimPath(r,progressDegrees){
+ const sweep=Math.min(360,Math.max(0,progressDegrees));
+ if(sweep<0.01)return '';
+ const segments=Math.ceil(sweep/4);
+ let out='';
+ for(let i=0;i<=segments;i++){
+  const a=(180 - sweep*i/segments-90)*Math.PI/180;
+  let x=r*Math.cos(a),y=r*Math.sin(a);
+  out+=(i?' L ':'M ')+x.toFixed(3)+' '+y.toFixed(3);
+ }
+ return out;
+}
+function updateStraight(progress=rollProgress){
+ rollProgress=Math.max(0,Math.min(1,progress));
+ const d=+$('diamStraight').value,n=1;
+ const mm=n*Math.PI*d;
+ $('diamStraightVal').textContent=d+' mm';
+ $('straightDistance').textContent=Math.round(mm)+' mm';
+ $('straightDistanceLabel').textContent=`${Math.round(mm*rollProgress)} mm travelled`;
+ // Wheel diameter is proportional to its rendered size.
+ const radius=32+(d-50)*.53;
+ const totalAngle=n*360*rollProgress;
+ // Translation is exactly the wheel's angular travel × its radius.
+ const distance=radius*totalAngle*Math.PI/180;
+ const x=110+distance;
+ const y=256-radius;
+ // Follow the moving wheel with a camera when it would leave the panel.
+ // The orange ground line and wheel stay in one physical coordinate system.
+ const pan=Math.max(0,x-475);
+ $('movingCamera').setAttribute('transform',`translate(${-pan.toFixed(3)} 0)`);
+ $('rollingTranslate').setAttribute('transform',`translate(${x.toFixed(3)} ${y.toFixed(3)})`);
+ $('rollingRotate').setAttribute('transform',`rotate(${totalAngle.toFixed(3)})`);
+ $('wheelOuter').setAttribute('r',radius);
+ $('wheelInner').setAttribute('r',radius*.72);
+ for(const [id,a] of [['spoke1',0],['spoke2',128],['spoke3',232]]){
+  const pt=polar(0,0,radius*.88,a);
+  $(id).setAttribute('x2',pt.x.toFixed(3));$(id).setAttribute('y2',pt.y.toFixed(3));
+ }
+ // A single small initial mark at bottom contact (180 degrees from top).
+ // As the wheel rolls forward new surface points join the orange rim arc.
+ $('contactSeed').setAttribute('d',`M -0.001 ${radius.toFixed(3)} L 0.001 ${radius.toFixed(3)}`);
+ $('contactArc').setAttribute('d',rimPath(radius,totalAngle));
+ $('travelGrowLine').setAttribute('d',`M 110 256 H ${x.toFixed(3)}`);
+}
+function rollingTick(t){
+ if(rollStart===null)rollStart=t;
+ const duration=1800;
+ const fraction=Math.min(1,(t-rollStart)/duration);
+ updateStraight(fraction);
+ if(fraction<1){rollingFrame=requestAnimationFrame(rollingTick)}
+ else{rollingFrame=0;rollStart=null;$('animateStraight').textContent='▶ Replay';}
+}
+$('diamStraight').addEventListener('input',()=>{stopRoll();updateStraight(0)});
+$('animateStraight').onclick=()=>{stopRoll();updateStraight(0);$('animateStraight').textContent='Animating…';rollingFrame=requestAnimationFrame(rollingTick)};
+$('resetStraight').onclick=()=>{stopRoll();updateStraight(0)};
+function updateTurn(){
+ const d=+$('dTurn').value,L=+$('lTurn').value,t=+$('thetaTurn').value,rev=t*L/(360*d);
+ $('dTurnVal').textContent=d+' mm';$('lTurnVal').textContent=L+' mm';$('thetaTurnVal').textContent=t+'°';
+ $('turnRevs').textContent=rev.toFixed(3);$('turnDegrees').textContent=(rev*360).toFixed(1)+'°';
+ // Rescale the robot and its wheel-centre path using the track width.
+ const cx=208, cy=104;
+ const trackRadius=36+(L-150)*(.15); // 36..88.5 screen units
+ const bodyWidth=2*trackRadius-25;
+ $('trackChassisPreview').setAttribute('x',(cx-bodyWidth/2).toFixed(2));
+ $('trackChassisPreview').setAttribute('width',bodyWidth.toFixed(2));
+ $('leftWheelPreview').setAttribute('x',(cx-trackRadius-6.5).toFixed(2));
+ $('rightWheelPreview').setAttribute('x',(cx+trackRadius-6.5).toFixed(2));
+ $('trackCirclePreview').setAttribute('r',trackRadius.toFixed(2));
+ $('turnPreview').style.transform=`rotate(${t}deg)`;
+}
+['dTurn','lTurn','thetaTurn'].forEach(id=>$(id).addEventListener('input',updateTurn));
+function setTurnProgress(f){
+ const angle=360*f;
+ $('turnRobot').setAttribute('transform',`rotate(${angle} 360 174)`);
+ for(const [id,r] of [['leftWheelTrace',104],['rightWheelTrace',98]]){
+  const circle=$(id), circumference=2*Math.PI*r;
+  circle.setAttribute('stroke-dasharray',circumference.toFixed(3));
+  circle.setAttribute('stroke-dashoffset',(circumference*(1-f)).toFixed(3));
+ }
+}
+function tick(t){if(!turnBegin)turnBegin=t;const f=Math.min(1,(t-turnBegin)/3500);setTurnProgress(f);if(f<1){turnRaf=requestAnimationFrame(tick)}else{turnRaf=0;turnBegin=0;$('playTurn').textContent='▶ Replay turn'}}
+$('playTurn').onclick=()=>{stopTurn();setTurnProgress(0);$('playTurn').textContent='Animating…';turnRaf=requestAnimationFrame(tick)};
+$('resetTurn').onclick=()=>{stopTurn();setTurnProgress(0)};
+document.querySelectorAll('.quizopt').forEach(b=>b.onclick=()=>{document.querySelectorAll('.quizopt').forEach(x=>x.classList.remove('correct','wrong'));b.classList.add(b.dataset.answer);$('quizFeedback').textContent=b.dataset.answer==='correct'?'Correct. The wheel travel is proportional to track width in the ideal model.':'Try again: a wider robot makes each wheel trace a larger circle.'});
+
+let turn90Raf=0, turn90Start=0;
+function draw90(f){$('turn90Robot').setAttribute('transform',`rotate(${90*f} 193 136)`);$('turn90Caption').textContent=f>=1?'Now facing right (east)':'Starting direction: forward';}
+function stop90(){if(turn90Raf)cancelAnimationFrame(turn90Raf);turn90Raf=0;turn90Start=0;$('playTurn90').textContent='▶ Animate 90° turn';}
+function animate90(t){if(!turn90Start)turn90Start=t;const progress=Math.min(1,(t-turn90Start)/1800);draw90(progress);if(progress<1)turn90Raf=requestAnimationFrame(animate90);else{turn90Raf=0;turn90Start=0;$('playTurn90').textContent='▶ Replay 90° turn';}}
+$('playTurn90').onclick=()=>{stop90();draw90(0);$('playTurn90').textContent='Animating…';turn90Raf=requestAnimationFrame(animate90)};
+$('resetTurn90').onclick=()=>{stop90();draw90(0)};
+
+draw90(0);
+updateStraight(0);updateTurn();setTurnProgress(0);show(0);
+})();</script></body></html>
